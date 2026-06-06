@@ -1,0 +1,52 @@
+﻿@model MVCProject.Dtos.UserDto
+
+<form asp-action="CreateUser" method="post" enctype="multipart/form-data" class="container mt-5" style="max-width: 400px;">
+    <div class="card shadow p-4">
+
+        <h3 class="text-center mb-4">Register</h3>
+
+        <!-- Username -->
+        <div class="mb-3">
+            <label asp-for="Username" class="form-label"></label>
+            <input asp-for="Username" class="form-control" placeholder="Enter username" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" placeholder="Enter email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <!-- Mobile Number -->
+        <div class="mb-3">
+            <label asp-for="Mobilenumber" class="form-label">Mobile Number</label>
+            <input asp-for="Mobilenumber" class="form-control" placeholder="Enter mobile number" />
+            <span asp-validation-for="Mobilenumber" class="text-danger"></span>
+        </div>
+        <!-- ✅ FIXED IMAGE UPLOAD PART -->
+         <div class="mb-3">
+            <label class="form-label">Upload Image</label>
+            <input type="file" name="ImageFile" class="form-control" accept="image/*" />
+        </div> 
+
+
+        <!-- Submit -->
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+
+    </div>
+</form>
+
+<p class="text-center mt-3">
+    <a asp-controller="Auth" asp-action="Login">I have an Account</a>
+</p>

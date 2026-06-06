@@ -1,0 +1,70 @@
+@model List<MVCProject.Models.Product>
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-4">
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-danger">
+            Product not found
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3>Product Details</h3>
+            </div>
+
+            @foreach (var item in Model)
+            {
+                    <!-- PRODUCT IMAGE -->
+                    <div class="row mb-3">
+                        <div class="col-md-3"><b>Image:</b></div>
+                        <div class="col-md-9">
+                            <img src="@(item.ImageUrl ?? "/images/default.png")"
+                                 style="width:120px;height:120px;object-fit:cover;border-radius:10px;" />
+                        </div>
+                    </div>
+                <div class="card-body border-bottom mb-3">
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><b>Product ID:</b></div>
+                        <div class="col-md-9">@item.Id</div>
+                    </div>
+
+                   
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><b>Name:</b></div>
+                        <div class="col-md-9">@item.Name</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><b>Description:</b></div>
+                        <div class="col-md-9">@item.Description</div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-md-3"><b>Price(Tk):</b></div>
+                        <div class="col-md-9">@item.Price</div>
+                    </div>
+
+                    <!-- ACTION BUTTONS -->
+                   
+                </div>
+            }
+
+            <div class="card-footer text-end">
+                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary">
+                    Back
+                </a>
+            </div>
+
+        </div>
+    }
+
+</div>

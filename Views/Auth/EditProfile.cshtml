@@ -1,0 +1,67 @@
+@model MVCProject.Dtos.UserDto
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container mt-5" style="max-width: 450px;">
+    <div class="card shadow p-4">
+
+        <h3 class="text-center mb-4">Edit Profile</h3>
+
+        <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+
+            <!-- Hidden Id (important if needed) -->
+            <input type="hidden" name="Id" value="@ViewBag.Id" />
+
+            <!-- Username -->
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="mb-3">
+                <label asp-for="Mobilenumber" class="form-label"></label>
+                <input asp-for="Mobilenumber" class="form-control" />
+                <span asp-validation-for="Mobilenumber" class="text-danger"></span>
+            </div>
+
+            <!-- Current Image -->
+            @if (ViewBag.ImagePath != null)
+            {
+                <div class="mb-3 text-center">
+                    <img src="@ViewBag.ImagePath" class="rounded" width="120" height="120" />
+                </div>
+            }
+
+            <!-- Upload New Image -->
+            <div class="mb-3">
+                <label class="form-label">Change Profile Image</label>
+                <input type="file" name="ImageFile" class="form-control" />
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,136 @@
+@model MVCProject.Dtos.OrderDto
+
+<style>
+    body {
+        background: #f5f7fb;
+    }
+
+    .checkout-container {
+        max-width: 700px;
+        margin: 40px auto;
+    }
+
+    .checkout-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .checkout-title {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    label {
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .payment-box {
+        background: #f8f9ff;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #e0e0ff;
+        margin-top: 10px;
+    }
+
+    .btn-order {
+        width: 100%;
+        background: linear-gradient(135deg, #007bff, #00c6ff);
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 10px;
+        color: white;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+
+    .btn-order:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(0,123,255,0.4);
+    }
+
+    .section-title {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #34495e;
+    }
+</style>
+
+<div class="checkout-container">
+
+    <div class="checkout-card">
+
+        <h2 class="checkout-title">🛒 Checkout</h2>
+
+        <form asp-action="PlaceOrder" method="post">
+
+            <!-- USER INFO -->
+            <div class="section-title">👤 Customer Information</div>
+
+            <label>Full Name</label>
+            <input asp-for="FullName" class="form-control" placeholder="Enter your name" />
+
+            <label>Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control" placeholder="01XXXXXXXXX" />
+
+            <label>Address</label>
+            <textarea asp-for="Address" class="form-control" rows="3" placeholder="Delivery address"></textarea>
+
+            <hr />
+
+            <!-- PAYMENT METHOD -->
+            <div class="section-title">💳 Payment Method</div>
+
+            <select id="paymentMethod" asp-for="PaymentMethod" class="form-control">
+                <option value="">-- Select Payment Method --</option>
+                <option value="COD">💵 Cash on Delivery</option>
+                <option value="Online">🌐 Online Payment</option>
+            </select>
+
+            <!-- ONLINE OPTIONS -->
+            <div id="onlineOptions" class="payment-box" style="display:none;">
+                <label>Choose Online Payment</label>
+
+                <select class="form-control" name="OnlineMethod">
+                    <option value="Bkash">📱 bKash</option>
+                    <option value="Nagad">💳 Nagad</option>
+                    <option value="Rocket">🏦 Rocket</option>
+                </select>
+
+                <small style="color:gray;">
+                    You will be redirected to payment gateway after order.
+                </small>
+            </div>
+
+            <!-- SUBMIT -->
+            <button type="submit" class="btn-order">
+                🚀 Place Order
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+<script>
+    document.getElementById("paymentMethod").addEventListener("change", function () {
+        var onlineDiv = document.getElementById("onlineOptions");
+
+        if (this.value === "Online") {
+            onlineDiv.style.display = "block";
+        } else {
+            onlineDiv.style.display = "none";
+        }
+    });
+</script>

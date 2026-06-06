@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MVCProject</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MVCProject.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom shadow-sm mb-3">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+
+                    <div class="d-flex align-items-center ms-auto">
+
+                        @if (Context.Session.GetInt32("UserId") != null)
+                        {
+                            var userImage = Context.Session.GetString("UserImage");
+
+                            if (string.IsNullOrEmpty(userImage))
+                            {
+                                userImage = "/images/default.png";
+                            }
+
+                            <div class="dropdown d-flex align-items-center">
+
+                                <!-- ✅ PROFILE IMAGE (FIXED CACHE ISSUE) -->
+                                <img src="@userImage?v=@DateTime.Now.Ticks"
+                                     class="rounded-circle me-2"
+                                     style="width:40px;height:40px;object-fit:cover;" />
+
+                                <button class="btn btn-outline-primary dropdown-toggle"
+                                        type="button"
+                                        data-bs-toggle="dropdown">
+                                    👤 Profile
+                                </button>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Auth"
+                                           asp-action="ViewProfile">
+                                            Profile
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Cart"
+                                           asp-action="Cart">
+                                            Cart
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Cart"
+                                           asp-action="Cart">
+                                            Orders
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Dashboard"
+                                           asp-action="ViewProducts">
+                                            Products
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Dashboard"
+                                           asp-action="Index">
+                                            Dashboard
+                                        </a>
+                                    </li>
+
+                                    <li><hr class="dropdown-divider"></li>
+
+                                    <li>
+                                        <a class="dropdown-item text-danger"
+                                           asp-controller="Auth"
+                                           asp-action="Logout">
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success"
+                               asp-controller="Auth"
+                               asp-action="Login">
+                                Login
+                            </a>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - MVCProject -
+            <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

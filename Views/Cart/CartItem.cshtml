@@ -1,0 +1,209 @@
+@model IEnumerable<MVCProject.Models.Cart>
+
+@{
+    ViewData["Title"] = "My Cart";
+    decimal grandTotal = Model?.Sum(x => x.TotalPrice) ?? 0;
+    int totalItems = Model?.Sum(x => x.Quantity) ?? 0;
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #eef2f7, #f8fafc);
+    }
+
+    .cart-item {
+        background: #fff;
+        border-radius: 14px;
+        padding: 15px;
+        transition: 0.3s;
+        border: 1px solid #eee;
+    }
+
+    .cart-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .product-img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid #eee;
+    }
+
+    .price {
+        font-size: 18px;
+        font-weight: 600;
+        color: #28a745;
+    }
+
+    .qty-btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        font-size: 18px;
+    }
+
+    /* 🔥 ORDER SUMMARY IMPROVED */
+    .summary-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border: none;
+    }
+
+    .summary-title {
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 15px;
+        color: #555;
+    }
+
+    .summary-total {
+        font-size: 20px;
+        font-weight: 700;
+        color: #28a745;
+    }
+
+    .checkout-btn {
+        font-weight: 600;
+        font-size: 16px;
+        padding: 12px;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .checkout-btn:hover {
+        transform: scale(1.03);
+    }
+
+    .badge-items {
+        background: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 13px;
+    }
+</style>
+
+<div class="container mt-5">
+
+    <h2 class="fw-bold mb-4">🛒 Your Cart</h2>
+
+    <div class="row g-4">
+
+        <!-- LEFT SIDE -->
+        <div class="col-lg-8">
+
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="cart-item d-flex align-items-center justify-content-between mb-3">
+
+                        <img src="@(item.ImageUrl ?? "/images/default.png")"
+                             class="product-img" />
+
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1">@item.ProductName</h5>
+                            <small class="text-muted">Product ID: @item.ProductId</small>
+
+                            <div class="mt-2 price">
+                                ৳ @item.TotalPrice
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <a asp-action="DecreaseQty"
+                               asp-route-productId="@item.ProductId"
+                               class="btn btn-outline-danger qty-btn">−</a>
+
+                            <span class="mx-2 fw-bold">@item.Quantity</span>
+
+                            <a asp-action="IncreaseQty"
+                               asp-route-productId="@item.ProductId"
+                               class="btn btn-outline-success qty-btn">+</a>
+                        </div>
+
+                        <div class="ms-3">
+                            <a asp-action="RemoveFromCart"
+                               asp-route-productId="@item.ProductId"
+                               class="btn btn-outline-danger btn-sm"
+                               onclick="return confirm('Remove this item?');">
+                                🗑
+                            </a>
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center p-5 bg-white rounded shadow-sm">
+                    <h4 class="mb-3">😢 Your cart is empty</h4>
+                    <a asp-controller="Dashboard" asp-action="Index"
+                       class="btn btn-primary">
+                        Continue Shopping
+                    </a>
+                </div>
+            }
+
+        </div>
+
+        <!-- 🔥 RIGHT SIDE (PROFESSIONAL SUMMARY) -->
+        <div class="col-lg-4">
+
+            <div class="summary-card">
+
+                <div class="summary-title">
+                    Order Summary
+                </div>
+
+                <div class="summary-row">
+                    <span>Items</span>
+                    <span class="badge-items">@totalItems</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>৳ @grandTotal</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span class="text-success">Free</span>
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fw-bold">Total</span>
+                    <span class="summary-total">৳ @grandTotal</span>
+                </div>
+
+                <a asp-controller="Order" asp-action="Checkout"
+                   class="btn btn-success w-100 checkout-btn">
+                    🚀 Proceed to Checkout
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <a asp-controller="Dashboard" asp-action="Index"
+       class="btn btn-outline-primary mt-4">
+        ⬅ Continue Shopping
+    </a>
+
+</div>

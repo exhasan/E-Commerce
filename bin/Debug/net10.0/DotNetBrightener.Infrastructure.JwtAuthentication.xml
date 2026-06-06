@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNetBrightener.Infrastructure.JwtAuthentication</name>
+    </assembly>
+    <members>
+        <member name="P:DotNetBrightener.Infrastructure.JwtAuthentication.IAuthAudiencesContainer.ValidAudiences">
+            <summary>
+                The list of valid audiences to check against when JWT validation is performed
+            </summary>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.IAuthAudiencesContainer.RegisterValidAudiences(System.String[])">
+            <summary>
+                Registers the valid audiences to the container
+            </summary>
+            <param name="validAudiences"></param>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.IAuthAudiencesContainer.RemoveAudiences(System.String[])">
+            <summary>
+                Removes the valid audiences from the container
+            </summary>
+            <param name="validAudiences"></param>
+        </member>
+        <member name="T:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration">
+            <summary>
+                Represents the configuration for JWT
+            </summary>
+        </member>
+        <member name="F:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration.DefaultExpiration">
+            <summary>
+                Specifies the default expiration of the token
+            </summary>
+        </member>
+        <member name="P:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration.Issuer">
+            <summary>
+                The name of the service that issues the token
+            </summary>
+        </member>
+        <member name="P:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration.SignatureVerificationKey">
+            <summary>
+                The public key for verifying the signature of the generated token
+            </summary>
+        </member>
+        <member name="P:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration.PrivateSigningKey">
+            <summary>
+                The private key for verifying the signature of the generated token
+            </summary>
+        </member>
+        <member name="P:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration.UseRSASigningVerification">
+            <summary>
+                Indicates whether the RSA algorithm is used to sign the token 
+            </summary>
+        </member>
+        <member name="P:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration.ExpireAfterMinutes">
+            <summary>
+                Indicates the expiration in minutes of the token
+            </summary>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfigurationExtensions.CreateAuthenticationToken(DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration,System.Collections.Generic.List{System.Security.Claims.Claim},System.Double@,System.String,System.Double,System.Action{System.IdentityModel.Tokens.Jwt.JwtSecurityToken})">
+            <summary>
+                Generates the JWT token for authenticating from given <see cref="!:claims"/>
+            </summary>
+            <param name="jwtConfiguration">The <see cref="T:DotNetBrightener.Infrastructure.JwtAuthentication.JwtConfiguration"/> object</param>
+            <param name="claims">The claims that form the Identity</param>
+            <param name="expiresAt">Specifies when the generated token expires</param>
+            <param name="audiencesString">Specifies the audiences for the generated token</param>
+            <param name="expiresInMinutes">
+                    Specifies the minutes after generated to expire the token
+            </param>
+            <param name="appendData">
+                Performs more actions to the token before generating it to string
+            </param>
+            <returns>Generated JWT string</returns>
+        </member>
+        <member name="P:DotNetBrightener.Infrastructure.JwtAuthentication.Middlewares.AllSchemesAuthenticationMiddleware.Schemes">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider"/>.
+            </summary>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.Middlewares.AllSchemesAuthenticationMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext,Microsoft.Extensions.Logging.ILogger{DotNetBrightener.Infrastructure.JwtAuthentication.Middlewares.AllSchemesAuthenticationMiddleware})">
+            <summary>
+                Invokes the middleware performing authentication.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.UseAllAuthenticators(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+                Enables all the authentication handlers to handle the authentication of the request
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.AddJwtBearerAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean)">
+            <inheritdoc cref="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.AddJwtBearerAuthentication(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean)"/>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.RegisterAuthAudienceValidator``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc cref="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.RegisterAuthAudienceValidator``1"/>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.RegisterAuthAudienceResolver``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc cref="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.RegisterAuthAudienceResolver``1"/>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.RegisterJwtMessageEventHandler``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <inheritdoc cref="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.RegisterJwtMessageEventHandler``1"/>
+        </member>
+        <member name="T:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.&lt;M&gt;$D65BE4B252EA9F19AD3C4DDD9FFB6A50">
+            <param name="serviceCollection"></param>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.AddJwtBearerAuthentication(Microsoft.Extensions.Configuration.IConfiguration,System.String,System.Boolean)">
+            <summary>
+                Registers JWT Authentication to the service collection
+            </summary>
+            <param name="configuration"></param>
+            <param name="includeCookieSupport"></param>
+            <returns></returns>
+            <exception cref="T:System.Data.DataException"></exception>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.RegisterAuthAudienceValidator``1">
+            <summary>
+                Registers the audience validator for JWT to the service collection
+            </summary>
+            <typeparam name="TValidator">The type of the audience validator</typeparam>
+            <returns>
+                The same instance of <paramref name="serviceCollection"/> for chaining operations
+            </returns>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.RegisterAuthAudienceResolver``1">
+            <summary>
+                Registers the audience validator for JWT to the service collection
+            </summary>
+            <typeparam name="TResolver">The type of the audience validator</typeparam>
+            <returns>
+                The same instance of <paramref name="serviceCollection"/> for chaining operations
+            </returns>
+        </member>
+        <member name="M:DotNetBrightener.Infrastructure.JwtAuthentication.ServiceCollectionExtensions.&lt;G&gt;$7B30185E57B8298C6754F16C0BCF4773.RegisterJwtMessageEventHandler``1">
+            <summary>
+                Registers the JWT message event handler to the service collection
+            </summary>
+            <typeparam name="TMessageHandler"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:System.XmlDocumentationExtensions">
+            <summary>
+            Provides extension methods for reading XML comments from reflected members.
+            </summary>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetTypeElementName(System.Type)">
+            <summary>
+                Returns the expected name for a member element in the XML documentation file.
+            </summary>
+            <param name="member">The reflected member.</param>
+            <returns>The name of the member element.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetMemberElementName(System.Reflection.MemberInfo)">
+            <summary>
+                Returns the expected name for a member element in the XML documentation file.
+            </summary>
+            <param name="member">The reflected member.</param>
+            <returns>The name of the member element.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentation(System.Reflection.MemberInfo)">
+            <summary>
+                Returns the XML documentation (summary tag) for the specified member.
+            </summary>
+            <param name="member">The reflected member.</param>
+            <returns>The contents of the summary tag for the member.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentationRemarks(System.Reflection.MemberInfo)">
+            <summary>
+                Returns the XML documentation (remarks tag) for the specified member.
+            </summary>
+            <param name="member">The reflected member.</param>
+            <returns>The contents of the summary tag for the member.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentationRemarks(System.Reflection.MemberInfo,System.String)">
+            <summary>
+                Returns the XML documentation (summary tag) for the specified member.
+            </summary>
+            <param name="member">The reflected member.</param>
+            <param name="pathToXmlFile">Path to the XML documentation file.</param>
+            <returns>The contents of the summary tag for the member.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentation(System.Reflection.MemberInfo,System.String)">
+            <summary>
+                Returns the XML documentation (summary tag) for the specified member.
+            </summary>
+            <param name="member">The reflected member.</param>
+            <param name="pathToXmlFile">Path to the XML documentation file.</param>
+            <returns>The contents of the summary tag for the member.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentation(System.Reflection.MemberInfo,System.Xml.Linq.XDocument)">
+            <summary>
+                Returns the XML documentation (summary tag) for the specified member.
+            </summary> 
+            <param name="member">The reflected member.</param>
+            <param name="xml">XML documentation.</param>
+            <returns>The contents of the summary tag for the member.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentation(System.Type,System.Xml.Linq.XDocument)">
+            <summary>
+                Returns the XML documentation (summary tag) for the specified type.
+            </summary> 
+            <param name="member">The reflected member.</param>
+            <param name="xml">XML documentation.</param>
+            <returns>The contents of the summary tag for the member.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentationRemarks(System.Reflection.MemberInfo,System.Xml.Linq.XDocument)">
+            <summary>
+                Returns the XML documentation (remarks tag) for the specified type.
+            </summary> 
+            <param name="member">The reflected member.</param>
+            <param name="xml">XML documentation.</param>
+            <returns>The contents of the summary tag for the member.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentation(System.Reflection.ParameterInfo)">
+            <summary>
+                Returns the XML documentation (returns/param tag) for the specified parameter.
+            </summary>
+            <param name="parameter">The reflected parameter (or return value).</param>
+            <returns>The contents of the returns/param tag for the parameter.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentation(System.Reflection.ParameterInfo,System.String)">
+            <summary>
+                Returns the XML documentation (returns/param tag) for the specified parameter.
+            </summary>
+            <param name="parameter">The reflected parameter (or return value).</param>
+            <param name="pathToXmlFile">Path to the XML documentation file.</param>
+            <returns>The contents of the returns/param tag for the parameter.</returns>
+        </member>
+        <member name="M:System.XmlDocumentationExtensions.GetXmlDocumentation(System.Reflection.ParameterInfo,System.Xml.Linq.XDocument)">
+            <summary>
+                Returns the XML documentation (returns/param tag) for the specified parameter.
+            </summary>
+            <param name="parameter">The reflected parameter (or return value).</param>
+            <param name="xml">XML documentation.</param>
+            <returns>The contents of the returns/param tag for the parameter.</returns>
+        </member>
+    </members>
+</doc>

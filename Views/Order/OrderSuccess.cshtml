@@ -1,0 +1,188 @@
+@model MVCProject.Models.Order
+@using Newtonsoft.Json
+@using MVCProject.Dtos
+
+@{
+    var products = Model.ProductListJson != null
+        ? JsonConvert.DeserializeObject<List<OrderProductDto>>(Model.ProductListJson)
+        : new List<OrderProductDto>();
+}
+
+<style>
+    body {
+        background: #f4f6f9;
+    }
+
+    .success-container {
+        max-width: 900px;
+        margin: 40px auto;
+    }
+
+    .success-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .success-header {
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(135deg, #00c853, #64dd17);
+        color: white;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .success-header h2 {
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .section-title {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #2c3e50;
+        border-left: 4px solid #00c853;
+        padding-left: 10px;
+    }
+
+    .info-box {
+        background: #f8f9ff;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 10px;
+        border-collapse: collapse;
+    }
+
+    table th, table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+
+    table th {
+        background: #007bff;
+        color: white;
+    }
+
+    .total-box {
+        text-align: right;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 15px;
+    }
+
+    .btn-group {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn-print {
+        background: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        margin: 5px;
+        cursor: pointer;
+    }
+
+    .btn-home {
+        background: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: none;
+        margin: 5px;
+        cursor: pointer;
+        text-decoration:none;
+        display:inline-block;
+    }
+
+    .product-img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+</style>
+
+<div class="success-container">
+
+    <div class="success-card">
+
+        <!-- SUCCESS HEADER -->
+        <div class="success-header">
+            <h2>🎉 Order Placed Successfully!</h2>
+            <p>Thank you for your purchase</p>
+        </div>
+
+        <!-- ORDER INFO -->
+        <div class="section-title">📦 Order Information</div>
+        <div class="info-box">
+            <p><b>Order Number:</b> @Model.OrderNumber</p>
+            <p><b>Order Date:</b> @Model.OrderTime</p>
+            <p><b>Delivery Date:</b> @Model.DeliveryDate</p>
+            <p><b>Status:</b> @Model.OrderStatus</p>
+        </div>
+
+        <!-- CUSTOMER INFO -->
+        <div class="section-title">👤 Customer Information</div>
+        <div class="info-box">
+            <p><b>Name:</b> @Model.FullName</p>
+            <p><b>Phone:</b> @Model.PhoneNumber</p>
+            <p><b>Address:</b> @Model.Address</p>
+        </div>
+
+        <!-- PAYMENT INFO -->
+        <div class="section-title">💳 Payment Information</div>
+        <div class="info-box">
+            <p><b>Method:</b> @Model.PaymentMethod</p>
+            <p><b>Transaction ID:</b> @Model.TransactionId</p>
+        </div>
+
+        <!-- PRODUCT LIST -->
+        <div class="section-title">🛒 Products</div>
+
+        <table>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+
+           @foreach (var item in products)
+        {
+         <tr>
+       
+        <td><img src="@item.ImageUrl" class="product-img" /></td>
+        <td>@item.ProductName</td>
+        <td>@item.Quantity</td>
+        <td>৳ @item.UnitPrice</td>
+        <td>৳ @item.TotalPrice</td>
+       
+       </tr>
+       }
+        </table>
+
+        <!-- TOTAL -->
+        <div class="total-box">
+            Grand Total: ৳ @Model.GrandTotal
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="btn-group">
+            <button class="btn-print" onclick="window.print()">🖨 Print Invoice</button>
+            <a href="/" class="btn-home">🏠 Back to Home</a>
+        </div>
+
+    </div>
+</div>

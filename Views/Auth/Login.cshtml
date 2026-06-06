@@ -1,0 +1,43 @@
+﻿@model MVCProject.Dtos.UserDto
+
+<form asp-action="LogedIn" method="post" class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow p-4" style="width: 400px;">
+
+        <h3 class="text-center mb-4">Login</h3>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center">
+                @TempData["Error"]
+            </div>
+        }
+
+        <!-- Username -->
+        <div class="mb-3">
+            <label asp-for="Username" class="form-label"></label>
+            <input asp-for="Username" class="form-control" placeholder="Enter username" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid mb-2">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+
+        <!-- Register link INSIDE form -->
+        <div class="text-center">
+            <small>
+                Don’t have an account?
+                <a asp-controller="Auth" asp-action="Register">Register here</a>
+            </small>
+        </div>
+
+    </div>
+</form>
