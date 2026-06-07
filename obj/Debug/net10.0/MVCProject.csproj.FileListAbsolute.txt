@@ -461,3 +461,4 @@ E:\Downloads\english\dotnet\MVCProject\MVCProject\MVCProject\obj\Debug\net10.0\r
 E:\Downloads\english\dotnet\MVCProject\MVCProject\MVCProject\obj\Debug\net10.0\MVCProject.pdb
 E:\Downloads\english\dotnet\MVCProject\MVCProject\MVCProject\obj\Debug\net10.0\MVCProject.genruntimeconfig.cache
 E:\Downloads\english\dotnet\MVCProject\MVCProject\MVCProject\obj\Debug\net10.0\ref\MVCProject.dll
+E:\Downloads\english\dotnet\MVCProject\MVCProject\MVCProject\obj\Debug\net10.0\MVCProject.sourcelink.json
